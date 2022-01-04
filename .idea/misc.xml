@@ -4,13 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/drawable/custom_card_view.xml" value="0.3828125" />
+        <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/drawable/ic_cards_heart.xml" value="0.3828125" />
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/drawable/ic_menu.xml" value="0.3828125" />
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/drawable/ic_tune.xml" value="0.3828125" />
-        <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/layout/activity_main.xml" value="0.4091381100726895" />
+        <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/layout/activity_main.xml" value="0.24585987261146497" />
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/layout/back_layout.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/layout/category_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/layout/front_layout.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/layout/joke_item.xml" value="0.4" />
+        <entry key="..\:/Users/vadim/AndroidStudioProjects/Kindofjoke/app/src/main/res/menu/navigation_menu.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>

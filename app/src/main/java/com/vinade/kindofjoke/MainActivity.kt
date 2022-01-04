@@ -2,7 +2,9 @@ package com.vinade.kindofjoke
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
@@ -22,6 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  recyclerJoke: RecyclerView
     var responseData = arrayListOf<JokeX>()
     var jokeAdapter = JokeAdapter(responseData)
+    var isFilter = false
+    var isMenu = false
+    var isGoing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         swipe_refresh.setOnRefreshListener {
             getResponse()
         }
+
     }
     fun getResponse(){
         val repository = Repository()
@@ -64,10 +70,58 @@ class MainActivity : AppCompatActivity() {
 
         val triggerView = findViewById<Button>(R.id.button_backdrop)
         backdropLayout.duration = 800
-        backdropLayout.revealHeight = 55
         triggerView.setOnClickListener {
-            backdropLayout.toggleBackdrop()
+            if(!isGoing){
+            backdropLayout.revealHeight = 55
+            if(!isMenu){
+                isGoing = true
+                recycler.visibility = View.VISIBLE
+                drop_menu.visibility = View.GONE
+                backdropLayout.toggleBackdrop()
+                isFilter = !isFilter
+                Handler().postDelayed({
+                    isGoing = false
+                }, 1000)
+            }else{
+                isGoing = true
+                backdropLayout.toggleBackdrop()
+                isMenu = !isMenu
+                isFilter = !isFilter
+                Handler().postDelayed({
+                    drop_menu.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
+                    backdropLayout.toggleBackdrop()
+                    isGoing = false
+                }, 1000)
+
+            }}
+
         }
+        button_burger.setOnClickListener {
+            if(!isGoing){
+            backdropLayout.revealHeight = 155
+            if(!isFilter){
+                isGoing = true
+                backdropLayout.toggleBackdrop()
+                recycler.visibility = View.GONE
+                drop_menu.visibility = View.VISIBLE
+                isMenu = !isMenu
+                Handler().postDelayed({
+                    isGoing = false
+                }, 1000)
+            }else{
+                isGoing = true
+                backdropLayout.toggleBackdrop()
+                isFilter = !isFilter
+                isMenu = !isMenu
+                Handler().postDelayed({
+                    drop_menu.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
+                    backdropLayout.toggleBackdrop()
+                    isGoing = false
+                }, 1000)
+            }
+        }}
     }
 
     fun initJokeAdapter(){
