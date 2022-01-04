@@ -34,11 +34,10 @@ class JokeAdapter(private val data: List<JokeX>): RecyclerView.Adapter<JokeAdapt
         val item = data[position]
         if(item.joke == null){
             holder.textJoke.text = item.setup + "\n" + item.delivery
-            holder.categoryJoke.text = item.category
         }else{
             holder.textJoke.text = item.joke
         }
-
+        holder.categoryJoke.text = item.category
         holder.likeBtnJoke.setOnClickListener {
             Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show()
         }

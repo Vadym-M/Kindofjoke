@@ -11,9 +11,9 @@ import retrofit2.Response
 class MainViewModel(private val repository: Repository): ViewModel() {
     val myResponse: MutableLiveData<Response<Joke>> = MutableLiveData()
 
-    fun getJoke(){
+    fun getJoke(category: String){
         viewModelScope.launch {
-          val response: Response<Joke> = repository.getJoke()
+          val response: Response<Joke> = repository.getJoke(category)
             myResponse.value = response
         }
     }

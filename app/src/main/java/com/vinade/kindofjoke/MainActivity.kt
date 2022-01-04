@@ -15,6 +15,7 @@ import com.vinade.kindofjoke.model.Joke
 import com.vinade.kindofjoke.model.JokeX
 import com.vinade.kindofjoke.repository.Repository
 import com.yusufpats.backdroplayout.BackdropLayout
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var  viewModel: MainViewModel
@@ -26,18 +27,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerJoke = findViewById<RecyclerView>(R.id.recycler_joke)
-        recyclerJoke.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerJoke.adapter = jokeAdapter
+        initJokeAdapter()
         getResponse()
         initBackdrop()
 
+        swipe_refresh.setOnRefreshListener {
+            getResponse()
+        }
     }
     fun getResponse(){
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getJoke()
+        viewModel.getJoke("Misc")
         viewModel.myResponse.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 Log.e("Response", response.body()!!.jokes.size.toString())
@@ -68,6 +70,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun initJokeAdapter(){
+        recyclerJoke = findViewById<RecyclerView>(R.id.recycler_joke)
+        recyclerJoke.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerJoke.adapter = jokeAdapter
+    }
+
     fun fillCategoryAdapter(): ArrayList<String>{
         val categories = arrayListOf<String>()
         categories.add("Programming")
@@ -83,5 +91,6 @@ class MainActivity : AppCompatActivity() {
         responseData.clear()
         responseData.addAll(response.jokes)
         jokeAdapter.notifyDataSetChanged()
+        swipe_refresh.isRefreshing = false
     }
 }

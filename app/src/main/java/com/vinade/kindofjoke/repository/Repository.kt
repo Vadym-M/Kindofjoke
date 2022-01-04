@@ -6,7 +6,7 @@ import retrofit2.Response
 
 class Repository {
 
-    suspend fun getJoke(): Response<Joke> {
-        return  RetrofitInstance.api.getJoke()
+    suspend fun getJoke(category: String): Response<Joke> {
+        return  RetrofitInstance.api.getJoke(category)
     }
 }
