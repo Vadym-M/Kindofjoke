@@ -53,4 +53,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
+    //backdropmenu
+    implementation 'com.yusufpats.backdroplayout:backdropLayout:1.0.0'
+
+    //material design
+    implementation 'com.google.android.material:material:1.6.0-alpha01'
 }
