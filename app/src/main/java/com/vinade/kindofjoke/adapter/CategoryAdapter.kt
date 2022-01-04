@@ -9,10 +9,7 @@ import com.vinade.kindofjoke.R
 
 class CategoryAdapter(private val data: ArrayList<String>): RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     class ViewHolder(view : View): RecyclerView.ViewHolder(view) {
-        val categoryTitle: TextView
-        init {
-            categoryTitle = view.findViewById(R.id.category_title)
-        }
+        val categoryTitle: TextView = view.findViewById(R.id.category_title)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

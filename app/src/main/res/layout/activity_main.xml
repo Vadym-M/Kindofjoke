@@ -85,11 +85,11 @@
         android:layout_marginTop="?actionBarSize"
         android:layout_marginBottom="-10dp"
         app:cardCornerRadius="10dp"
-        android:background="@drawable/custom_card_view"
         app:cardElevation="16dp" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Front View"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_joke"
+            android:background="@color/bg_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </androidx.cardview.widget.CardView>
 </com.yusufpats.backdroplayout.BackdropLayout>

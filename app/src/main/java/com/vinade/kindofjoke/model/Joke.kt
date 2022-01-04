@@ -1,9 +1,14 @@
 package com.vinade.kindofjoke.model
 
 data class Joke(
+    val amount: Int,
+    val error: Boolean,
+    val jokes: List<JokeX>
+)
+
+data class JokeX(
     val category: String,
     val delivery: String,
-    val error: Boolean,
     val flags: Flags,
     val id: Int,
     val lang: String,
