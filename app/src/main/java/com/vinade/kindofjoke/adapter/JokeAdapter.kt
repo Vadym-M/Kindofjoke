@@ -10,8 +10,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.vinade.kindofjoke.R
 import com.vinade.kindofjoke.model.Joke
+import com.vinade.kindofjoke.model.JokeX
 
-class JokeAdapter(private val data: Joke): RecyclerView.Adapter<JokeAdapter.ViewHolder>() {
+class JokeAdapter(private val data: List<JokeX>): RecyclerView.Adapter<JokeAdapter.ViewHolder>() {
 
     lateinit var context: Context
 
@@ -30,9 +31,14 @@ class JokeAdapter(private val data: Joke): RecyclerView.Adapter<JokeAdapter.View
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data.jokes[position]
-        holder.textJoke.text = item.setup + "\n" + item.delivery
-        holder.categoryJoke.text = item.category
+        val item = data[position]
+        if(item.joke == null){
+            holder.textJoke.text = item.setup + "\n" + item.delivery
+            holder.categoryJoke.text = item.category
+        }else{
+            holder.textJoke.text = item.joke
+        }
+
         holder.likeBtnJoke.setOnClickListener {
             Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show()
         }
@@ -41,5 +47,5 @@ class JokeAdapter(private val data: Joke): RecyclerView.Adapter<JokeAdapter.View
         }
     }
 
-    override fun getItemCount() = data.jokes.size
+    override fun getItemCount() = data.size
 }
