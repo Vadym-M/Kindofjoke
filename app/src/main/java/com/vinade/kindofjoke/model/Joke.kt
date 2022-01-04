@@ -9,14 +9,14 @@ data class Joke(
 }
 
 data class JokeX(
-    val category: String,
-    val delivery: String,
+    var category: String,
+    var delivery: String,
     val flags: Flags,
-    val id: Int,
-    val joke: String,
+    var id: Int,
+    var joke: String,
     val lang: String,
     val safe: Boolean,
-    val setup: String,
+    var setup: String,
     val type: String
 )
 

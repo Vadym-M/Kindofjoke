@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="50dp"
-    android:layout_margin="5dp">
-
-    <TextView
+ <com.google.android.material.chip.Chip
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/category_title"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="10dp"
+        app:chipBackgroundColor="@color/white"
+        app:rippleColor="@color/main_color"
+        app:checkedIcon="@drawable/ic_check"
+        app:checkedIconTint="@color/main_color"
+        app:checkedIconVisible="true"
         android:fontFamily="@font/montserrat"
         android:text="Item" />
-
-</androidx.cardview.widget.CardView>

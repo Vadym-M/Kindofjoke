@@ -7,12 +7,15 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vinade.kindofjoke.adapter.CategoryAdapter
 import com.vinade.kindofjoke.adapter.JokeAdapter
+import com.vinade.kindofjoke.database.Database
+import com.vinade.kindofjoke.database.DatabaseHelper
 import com.vinade.kindofjoke.model.Joke
 import com.vinade.kindofjoke.model.JokeX
 import com.vinade.kindofjoke.repository.Repository
@@ -22,6 +25,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private lateinit var  viewModel: MainViewModel
     private lateinit var  recyclerJoke: RecyclerView
+    private lateinit var  adapter: CategoryAdapter
+    val db = Database(this)
     var responseData = arrayListOf<JokeX>()
     var jokeAdapter = JokeAdapter(responseData)
     var isFilter = false
@@ -32,12 +37,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         initJokeAdapter()
         getResponse()
         initBackdrop()
 
+
+
         swipe_refresh.setOnRefreshListener {
-            getResponse()
+            observe(adapter.getCategotyString())
+        }
+        btn_favorite.setOnClickListener {
+            btn_favorite.setIconTintResource(R.color.violet_color)
+            btn_favorite.setTextColor(ContextCompat.getColor(this, R.color.violet_color))
+            btn_home.setIconTintResource(R.color.white)
+            btn_home.setTextColor(ContextCompat.getColor(this, R.color.white))
+            swipe_refresh.isEnabled = false
+            val data = db.readJokeX()
+            fillJokeAdapter(data)
+        }
+        btn_home.setOnClickListener {
+            btn_favorite.setIconTintResource(R.color.white)
+            btn_favorite.setTextColor(ContextCompat.getColor(this, R.color.white))
+            btn_home.setIconTintResource(R.color.violet_color)
+            btn_home.setTextColor(ContextCompat.getColor(this, R.color.violet_color))
+            swipe_refresh.isEnabled = true
+            observe(adapter.getCategotyString())
         }
 
     }
@@ -45,12 +71,15 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getJoke("Misc")
+        observe("Any")
+    }
+    fun observe(category : String){
+        viewModel.getJoke(category)
         viewModel.myResponse.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 Log.e("Response", response.body()!!.jokes.size.toString())
 
-               fillJokeAdapter(response.body()!!)
+                fillJokeAdapter(response.body()!!.jokes)
 
             }else{
                 Log.e("Response", response.errorBody().toString())
@@ -66,7 +95,8 @@ class MainActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         backdropLayout.frontSheet = frontLayer
         val categories = fillCategoryAdapter()
-        recycler.adapter = CategoryAdapter(categories)
+        adapter = CategoryAdapter(categories, this)
+        recycler.adapter = adapter
 
         val triggerView = findViewById<Button>(R.id.button_backdrop)
         backdropLayout.duration = 800
@@ -141,9 +171,9 @@ class MainActivity : AppCompatActivity() {
         return  categories
     }
 
-    fun fillJokeAdapter(response: Joke){
+    fun fillJokeAdapter(jokes:List<JokeX>){
         responseData.clear()
-        responseData.addAll(response.jokes)
+        responseData.addAll(jokes)
         jokeAdapter.notifyDataSetChanged()
         swipe_refresh.isRefreshing = false
     }
